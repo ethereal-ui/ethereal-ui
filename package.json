@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "license": "MIT",
+  "lint-staged": {
+    "package.json": "sort-package-json"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "lint-staged": "^13.0.3",
+    "prettier": "2.7.1",
+    "sort-package-json": "^2.0.0"
+  }
+}
