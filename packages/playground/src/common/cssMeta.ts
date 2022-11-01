@@ -1,8 +1,8 @@
 import type {
-  ClassNames,
+  ClassName,
   CssMeta,
   DescendantsSpec,
-  Selectors,
+  Selector,
 } from '../types/CssMeta.js';
 
 const isModifierArray = <Modifier extends string>(
@@ -13,7 +13,7 @@ const createClassNames =
   <Modifier extends string>(
     prefix: string,
     _modifiers?: readonly Modifier[]
-  ): ClassNames<Modifier> =>
+  ): ClassName<Modifier> =>
   (...names) =>
     names
       .flatMap(name => {
@@ -30,7 +30,7 @@ const createSelectors =
   <Modifier extends string>(
     prefix: string,
     _modifiers?: readonly Modifier[]
-  ): Selectors<Modifier> =>
+  ): Selector<Modifier> =>
   (...names) =>
     names.map(name => `${prefix}-${name}`).join('.');
 
@@ -58,13 +58,13 @@ export const cssMeta = <
   const prefix = `eui-${componentName}`;
 
   return {
-    classNames: Object.assign(
+    className: Object.assign(
       createClassNames(prefix, modifiers),
       mapValues(descendants ?? {}, (mods, descendant) =>
         createClassNames(`${prefix}_${String(descendant)}`, mods)
       )
     ),
-    selectors: Object.assign(
+    selector: Object.assign(
       createSelectors(prefix, modifiers),
       mapValues(descendants ?? {}, (mods, descendant) =>
         createSelectors(`${prefix}_${String(descendant)}`, mods)
