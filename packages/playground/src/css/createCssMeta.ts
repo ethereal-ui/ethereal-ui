@@ -1,9 +1,7 @@
-import type {
-  ClassName,
-  CssMeta,
-  DescendantsSpec,
-  Selector,
-} from '../types/CssMeta.js';
+import type { CssMeta } from './CssMeta.js';
+import { Selector } from './Selector';
+import { DescendantsSpec } from './DescendantsSpec';
+import { ClassName } from './ClassName';
 
 const isModifierArray = <Modifier extends string>(
   arrayOrObject: readonly Modifier[] | Record<Modifier, boolean>
@@ -15,9 +13,11 @@ const createClassNames =
     _modifiers?: readonly Modifier[]
   ): ClassName<Modifier> =>
   (...names) =>
-    names
+    [prefix, ...names]
       .flatMap(name => {
+        if (typeof name === 'undefined') return [];
         if (typeof name === 'string') return name;
+
         return isModifierArray(name)
           ? name.map(n => `${prefix}-${n}`)
           : Object.keys(name)
@@ -47,7 +47,7 @@ const mapValues = <O extends {}, F extends (v: O[keyof O], n: keyof O) => R, R>(
   ) as Record<K, R>;
 };
 
-export const cssMeta = <
+export const createCssMeta = <
   Modifier extends string,
   Descendants extends DescendantsSpec = {}
 >(
@@ -57,6 +57,16 @@ export const cssMeta = <
 ): CssMeta<Modifier, Descendants> => {
   const prefix = `eui-${componentName}`;
 
+  function* allClassNames() {
+    yield prefix;
+
+    for (const modifier of modifiers ?? []) yield `${prefix}-${modifier}`;
+
+    for (const [descendant, descModifiers] of Object.entries(descendants ?? {}))
+      for (const modifier of descModifiers)
+        yield `${prefix}_${descendant}-${modifier}`;
+  }
+
   return {
     className: Object.assign(
       createClassNames(prefix, modifiers),
@@ -64,11 +74,14 @@ export const cssMeta = <
         createClassNames(`${prefix}_${String(descendant)}`, mods)
       )
     ),
+
     selector: Object.assign(
       createSelectors(prefix, modifiers),
       mapValues(descendants ?? {}, (mods, descendant) =>
         createSelectors(`${prefix}_${String(descendant)}`, mods)
       )
     ),
+
+    allClassNames,
   } as CssMeta<Modifier, Descendants>;
 };

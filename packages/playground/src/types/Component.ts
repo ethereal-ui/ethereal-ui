@@ -1,6 +1,9 @@
 import { JSX } from 'solid-js';
 
-export interface Component<P = {}, C extends () => string = never> {
+import type { CssMeta } from '../css/CssMeta';
+import type { DescendantsSpec } from '../css/DescendantsSpec';
+
+export interface Component<P = {}, C = never> {
   (props: P): JSX.Element;
-  css?: C;
+  readonly css: C;
 }
