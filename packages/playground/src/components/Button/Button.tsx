@@ -2,6 +2,7 @@ import { createCssMeta } from '../../css/createCssMeta.js';
 import { component } from '../../common/component.js';
 
 import type { ButtonProps } from './ButtonProps';
+import { Unstyled } from '../../types/Unstyled.js';
 
 const css = createCssMeta('Button', [
   // variants
@@ -15,11 +16,12 @@ const css = createCssMeta('Button', [
   'large',
 ] as const);
 
-export const Button = component(
-  css,
-  ({ class: className, style, children }: ButtonProps) => (
-    <button class={css.className(className)} style={style} type="button">
-      {children}
-    </button>
-  )
-);
+export const Button = component(css, (props: Unstyled<ButtonProps>) => (
+  <button
+    class={css.className(props.class, [props.variant])}
+    style={props.style}
+    type="button"
+  >
+    {props.children}
+  </button>
+));

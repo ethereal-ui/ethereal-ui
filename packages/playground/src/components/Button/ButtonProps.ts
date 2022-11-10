@@ -1,7 +1,6 @@
 import { JSX } from 'solid-js';
 
 export interface ButtonProps {
-  class?: string;
-  style?: string;
+  variant?: 'solid' | 'outline' | 'ghost';
   children?: JSX.Element;
 }

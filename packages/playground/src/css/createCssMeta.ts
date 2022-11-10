@@ -32,7 +32,7 @@ const createSelectors =
     _modifiers?: readonly Modifier[]
   ): Selector<Modifier> =>
   (...names) =>
-    names.map(name => `${prefix}-${name}`).join('.');
+    `.${prefix}${names.map(name => `.${prefix}-${name}`).join('')}`;
 
 const mapValues = <O extends {}, F extends (v: O[keyof O], n: keyof O) => R, R>(
   obj: O,
@@ -49,12 +49,13 @@ const mapValues = <O extends {}, F extends (v: O[keyof O], n: keyof O) => R, R>(
 
 export const createCssMeta = <
   Modifier extends string,
-  Descendants extends DescendantsSpec = {}
+  Descendants extends DescendantsSpec<DescendantName>,
+  DescendantName extends string
 >(
   componentName: string,
   modifiers?: readonly Modifier[],
-  descendants?: Descendants
-): CssMeta<Modifier, Descendants> => {
+  descendantsSpec?: Descendants
+): CssMeta<Modifier, Descendants, DescendantName> => {
   const prefix = `eui-${componentName}`;
 
   function* allClassNames() {
@@ -62,26 +63,37 @@ export const createCssMeta = <
 
     for (const modifier of modifiers ?? []) yield `${prefix}-${modifier}`;
 
-    for (const [descendant, descModifiers] of Object.entries(descendants ?? {}))
-      for (const modifier of descModifiers)
-        yield `${prefix}_${descendant}-${modifier}`;
+    if (descendantsSpec) {
+      for (const [descendant, descModifiers] of Object.entries<
+        readonly string[]
+      >(descendantsSpec))
+        for (const modifier of descModifiers)
+          yield `${prefix}_${descendant}-${modifier}`;
+    }
+  }
+
+  function* descendants() {
+    for (const name of Object.keys(descendantsSpec ?? {}))
+      yield name as DescendantName;
   }
 
   return {
     className: Object.assign(
       createClassNames(prefix, modifiers),
-      mapValues(descendants ?? {}, (mods, descendant) =>
+      mapValues(descendantsSpec ?? {}, (mods, descendant) =>
         createClassNames(`${prefix}_${String(descendant)}`, mods)
       )
-    ),
+    ) as CssMeta<Modifier, Descendants, DescendantName>['className'],
 
     selector: Object.assign(
       createSelectors(prefix, modifiers),
-      mapValues(descendants ?? {}, (mods, descendant) =>
+      mapValues(descendantsSpec ?? {}, (mods, descendant) =>
         createSelectors(`${prefix}_${String(descendant)}`, mods)
       )
-    ),
+    ) as CssMeta<Modifier, Descendants, DescendantName>['selector'],
 
     allClassNames,
-  } as CssMeta<Modifier, Descendants>;
+
+    descendants,
+  };
 };

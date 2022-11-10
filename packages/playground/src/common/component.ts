@@ -7,9 +7,10 @@ import { Component } from '../types/Component';
 export const component = <
   Props extends {},
   Modifier extends string,
-  Descendants extends DescendantsSpec
+  Descendants extends DescendantsSpec<DescendantName>,
+  DescendantName extends string
 >(
-  css: CssMeta<Modifier, Descendants>,
+  css: CssMeta<Modifier, Descendants, DescendantName>,
   impl: (props: Props) => JSX.Element
-): Component<Props, CssMeta<Modifier, Descendants>> =>
+): Component<Props, CssMeta<Modifier, Descendants, DescendantName>> =>
   Object.assign(impl, { css });

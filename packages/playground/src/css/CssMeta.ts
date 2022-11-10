@@ -6,9 +6,20 @@ import type { Selector } from './Selector';
 
 export interface CssMeta<
   Modifier extends string,
-  Descendants extends DescendantsSpec
+  Descendants extends DescendantsSpec<DescendantName>,
+  DescendantName extends string
 > {
-  readonly className: ClassName<Modifier> & DescendantClassName<Descendants>;
-  readonly selector: Selector<Modifier> & DescendantSelector<Descendants>;
+  readonly className: ClassName<Modifier> &
+    DescendantClassName<Descendants, DescendantName>;
+
+  readonly selector: Selector<Modifier> &
+    DescendantSelector<Descendants, DescendantName>;
+
   readonly allClassNames: () => Generator<string, void, unknown>;
+
+  readonly descendants: () => Generator<
+    keyof DescendantsSpec<DescendantName>,
+    void,
+    unknown
+  >;
 }
