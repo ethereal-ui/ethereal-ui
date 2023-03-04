@@ -22,11 +22,14 @@ importers:
     specifiers:
       '@ethereal-ui/eslint-config': workspace:*
       '@ethereal-ui/tsconfig': workspace:*
+      '@ethereal-ui/util': workspace:^0.0.0
       '@vitest/coverage-c8': ^0.29.2
       rimraf: ^4.3.0
       typescript: ^4.9.5
       vite: ^3.2.5
       vitest: ^0.29.2
+    dependencies:
+      '@ethereal-ui/util': link:../util
     devDependencies:
       '@ethereal-ui/eslint-config': link:../eslint-config
       '@ethereal-ui/tsconfig': link:../tsconfig
@@ -62,10 +65,18 @@ importers:
 
   packages/util:
     specifiers:
+      '@ethereal-ui/eslint-config': workspace:*
+      '@ethereal-ui/tsconfig': workspace:*
+      '@vitest/coverage-c8': ^0.29.2
+      rimraf: ^4.3.0
       typescript: ^4.9.5
       vite: ^3.2.5
       vitest: ^0.29.2
     devDependencies:
+      '@ethereal-ui/eslint-config': link:../eslint-config
+      '@ethereal-ui/tsconfig': link:../tsconfig
+      '@vitest/coverage-c8': 0.29.2_vitest@0.29.2
+      rimraf: 4.3.0
       typescript: 4.9.5
       vite: 3.2.5
       vitest: 0.29.2

@@ -1,0 +1,4 @@
+{
+  "extends": "@ethereal-ui/tsconfig",
+  "include": ["src"]
+}
