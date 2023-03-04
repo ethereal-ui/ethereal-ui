@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# See: https://sharats.me/posts/shell-script-best-practices/
+set -o errexit
+set -o nounset
+set -o pipefail
+
+git switch main
+git fetch origin
+git merge origin/release --no-verify -X theirs -m 'Merge latest release version [skip ci]'
+git push --no-verify
+git switch -
