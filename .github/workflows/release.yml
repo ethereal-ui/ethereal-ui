@@ -1,0 +1,33 @@
+name: Publish to NPM Registry
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 19.x
+        # https://github.com/actions/setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+
+      - name: Install Dependencies
+        run: corepack enable && pnpm install
+
+      - name: Create Release Pull Request or Publish to npm
+        # https://github.com/changesets/action
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          version: pnpm version-packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
