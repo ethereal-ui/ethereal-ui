@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker",
+    "davidanson.vscode-markdownlint",
+    "bierner.github-markdown-preview",
+    "eamodio.gitlens",
+    "stkb.rewrap",
+    "ZixuanChen.vitest-explorer"
+  ]
+}
