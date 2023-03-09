@@ -91,6 +91,19 @@ describe('ClassNames (cn)', () => {
     });
     expect(cn(122 as any)).toBe('t-Test');
   });
+
+  test('Pass className object', () => {
+    const { cn } = componentClassNames('Test', ['modifier'], undefined, {
+      prefix: 't',
+    });
+
+    expect(cn({ className: 'testing', modifier: true })).toBe(
+      't-Test testing t-Test_modifier'
+    );
+    expect(cn({ className: 'testing' }, 'modifier')).toBe(
+      't-Test testing t-Test_modifier'
+    );
+  });
 });
 
 describe('SelectorName (sel)', () => {

@@ -3,7 +3,12 @@ import { filterTruthy } from '@ethereal-ui/util';
 export const defaultClassNamePrefix = 'eui';
 
 type ClassNamesArgs<Modifier extends string = string> = ReadonlyArray<
-  Modifier | Record<Modifier, boolean> | false | null | undefined
+  | Modifier
+  | Record<Modifier, boolean>
+  | { className?: string | undefined }
+  | false
+  | null
+  | undefined
 >;
 
 // https://github.com/microsoft/TypeScript/issues/23182#issuecomment-379094672
@@ -60,8 +65,10 @@ const modifierClassNames = (
           return `${prefix}_${modifier}`;
         case 'object':
           return Object.entries(modifier)
-            .filter(([, v]) => Boolean(v))
-            .map(([mod]) => `${prefix}_${mod}`);
+            .filter(([, value]) => Boolean(value))
+            .map(([mod, value]) =>
+              mod === 'className' ? value : `${prefix}_${mod}`
+            );
         default:
           return [];
       }

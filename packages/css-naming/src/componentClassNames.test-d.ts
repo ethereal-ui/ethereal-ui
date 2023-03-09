@@ -33,3 +33,18 @@ test('Descendant with modifiers', () => {
   // @ts-expect-error
   names.cn.elem('other');
 });
+
+test('Allow className with string', () => {
+  const { cn } = componentClassNames('Comp', ['modifier']);
+
+  assertType<string>(cn({ className: 'any' }));
+
+  // @ts-expect-error
+  assertType<string>(cn({ className: 'any', modifier: 'text' }));
+});
+
+test('Allow undefined className', () => {
+  const { cn } = componentClassNames('Comp', ['modifier']);
+
+  assertType<string>(cn({ className: undefined }));
+});
