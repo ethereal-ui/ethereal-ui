@@ -11,12 +11,11 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.lib.json",
+    "build": "vite build",
     "clean": "rimraf lib coverage",
     "coverage": "vitest run --coverage",
     "lint": "eslint src --max-warnings 0",
-    "test": "vitest --watch=false",
-    "typecheck": "vitest typecheck --watch=false"
+    "test": "vitest --watch=false --typecheck"
   },
   "eslintConfig": {
     "extends": [
@@ -29,10 +28,11 @@
   "devDependencies": {
     "@ethereal-ui/eslint-config": "workspace:*",
     "@ethereal-ui/tsconfig": "workspace:*",
-    "@vitest/coverage-c8": "^0.29.8",
+    "@vitest/coverage-v8": "^1.5.0",
     "rimraf": "^5.0.5",
-    "typescript": "^5.2.2",
-    "vite": "^4.5.0",
-    "vitest": "^0.29.8"
+    "typescript": "^5.4.5",
+    "vite": "^5.2.9",
+    "vite-plugin-dts": "^3.8.3",
+    "vitest": "^1.5.0"
   }
 }

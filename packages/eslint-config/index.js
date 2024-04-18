@@ -2,16 +2,22 @@
 module.exports = {
   extends: ['airbnb-base', 'airbnb-typescript/base', 'prettier'],
   parser: '@typescript-eslint/parser',
+
   parserOptions: {
     project: true,
   },
   ignorePatterns: ['lib'],
+
   rules: {
     // It's ok to import devDependencies in tests
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: ['**/*.test.ts?(x)', '**/*.test-d.ts?(x)'],
+        devDependencies: [
+          '**/*.test.ts?(x)',
+          '**/*.test-d.ts?(x)',
+          '**/vite.config.ts',
+        ],
       },
     ],
 
@@ -45,4 +51,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['vite.config.ts'],
+      rules: {
+        'import/no-default-export': 'off',
+      },
+    },
+  ],
 };
