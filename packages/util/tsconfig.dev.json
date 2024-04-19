@@ -3,5 +3,5 @@
   "compilerOptions": {
     "composite": true
   },
-  "include": ["src", "vite.config.ts", "**/*.test.ts", "**/*.test-d.ts"]
+  "include": ["src", "vite.config.ts", "**/*.test.ts"]
 }
