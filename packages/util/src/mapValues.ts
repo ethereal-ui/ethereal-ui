@@ -1,7 +1,7 @@
 export const mapValues = <
   Source extends Record<string, unknown>,
   F extends (value: Source[keyof Source], key: keyof Source) => unknown,
-  Result extends Record<keyof Source, ReturnType<F>>
+  Result extends Record<keyof Source, ReturnType<F>>,
 >(
   obj: Source,
   fn: F

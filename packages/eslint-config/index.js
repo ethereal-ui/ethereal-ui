@@ -4,19 +4,20 @@ module.exports = {
   parser: '@typescript-eslint/parser',
 
   parserOptions: {
-    project: true,
+    project: './packages/*/tsconfig.dev.json',
   },
+
   ignorePatterns: ['lib'],
 
   rules: {
-    // It's ok to import devDependencies in tests
     'import/no-extraneous-dependencies': [
       'error',
       {
         devDependencies: [
           '**/*.test.ts?(x)',
           '**/*.test-d.ts?(x)',
-          '**/vite.config.ts',
+          '**/eslint.config.{js,ts}',
+          '**/vite.config.{js,ts}',
         ],
       },
     ],
@@ -50,10 +51,26 @@ module.exports = {
           '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
       },
     ],
+
+    'no-restricted-exports': [
+      'error',
+      {
+        // "then" causes confusion when your module is dynamically
+        // `import()`ed, and will break in most node ESM versions
+        restrictedNamedExports: ['then'],
+      },
+    ],
   },
   overrides: [
     {
-      files: ['vite.config.ts'],
+      files: ['*.config.js'],
+      extends: ['plugin:@typescript-eslint/disable-type-checked'],
+      rules: {
+        'import/no-default-export': 'off',
+      },
+    },
+    {
+      files: ['*.config.ts'],
       rules: {
         'import/no-default-export': 'off',
       },

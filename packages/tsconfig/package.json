@@ -1,3 +1,4 @@
 {
-  "name": "@ethereal-ui/tsconfig"
+  "name": "@ethereal-ui/tsconfig",
+  "private": true
 }

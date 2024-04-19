@@ -1,0 +1,14 @@
+{
+  "name": "@ethereal-ui/vite-config",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "vite-plugin-dts": "^3.8.3"
+  },
+  "devDependencies": {
+    "vite": "^5.2.9"
+  },
+  "peerDependencies": {
+    "vite": "5.x"
+  }
+}
