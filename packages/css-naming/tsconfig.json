@@ -1,6 +1,6 @@
 {
   "extends": "@ethereal-ui/tsconfig",
   "include": ["src"],
-  "exclude": ["**/*.test.ts", "**/*.test-d.ts"],
+  "exclude": ["**/*.test.ts"],
   "references": [{ "path": "./tsconfig.dev.json" }]
 }
