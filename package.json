@@ -2,7 +2,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "prepare": "is-ci || husky"
+    "prepare": "husky"
   },
   "lint-staged": {
     "package.json": "sort-package-json",
@@ -19,7 +19,6 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "husky": "^9.0.11",
-    "is-ci": "^3.0.1",
     "lint-staged": "^15.2.2",
     "prettier": "3.2.5",
     "sort-package-json": "^2.10.0"

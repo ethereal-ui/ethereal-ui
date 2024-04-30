@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "vite-plugin-dts": "^3.8.3"
+    "vite-plugin-dts": "^3.9.0"
   },
   "devDependencies": {
-    "vite": "^5.2.9"
+    "vite": "^5.2.10"
   },
   "peerDependencies": {
     "vite": "5.x"
