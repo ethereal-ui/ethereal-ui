@@ -1,3 +1,4 @@
 export * from './filterTruthy';
 export * from './mapValues';
 export * from './upperFirst';
+export * from './lazy';
