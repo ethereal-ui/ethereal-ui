@@ -1,3 +1,3 @@
-export * from './filterTruthy.js';
-export * from './mapValues.js';
-export * from './upperFirst.js';
+export * from './filterTruthy';
+export * from './mapValues';
+export * from './upperFirst';

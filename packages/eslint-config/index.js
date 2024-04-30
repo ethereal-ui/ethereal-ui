@@ -28,9 +28,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/no-default-export': 'error',
 
-    'import/extensions': ['error', 'ignorePackages'],
-    'import/no-unresolved': 0,
-
     // Allow the use of ForOfStatement that is disabled by AirBnb rules:
     // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/style.js#L347
     'no-restricted-syntax': [

@@ -13,7 +13,6 @@ import { elementClassNamePropertyDescriptors } from './elementClassNamePropertyD
 
 export const defaultPrefix = 'eui' as const;
 
-/*#__NO_SIDE_EFFECTS__*/
 export const componentClassNames = <
   N extends string,
   E extends string,

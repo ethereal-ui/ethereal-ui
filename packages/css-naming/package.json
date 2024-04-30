@@ -17,6 +17,12 @@
     "lint": "eslint src --max-warnings 0",
     "test": "vitest --watch=false"
   },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "tsconfig.dev.json"
+    },
+    "extends": "@ethereal-ui/eslint-config"
+  },
   "dependencies": {
     "@ethereal-ui/util": "workspace:^0.0.0"
   },
@@ -25,6 +31,7 @@
     "@ethereal-ui/tsconfig": "workspace:*",
     "@ethereal-ui/vite-config": "workspace:*",
     "@vitest/coverage-v8": "^1.5.0",
+    "eslint": "^8.57.0",
     "rimraf": "^5.0.5",
     "typescript": "^5.4.5",
     "vite": "^5.2.9",
