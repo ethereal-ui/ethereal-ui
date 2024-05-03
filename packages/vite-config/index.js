@@ -1,9 +1,15 @@
+import { readFileSync } from 'node:fs';
 import { fileURLToPath, URL } from 'node:url';
+
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
-export const library = (moduleUrl, fileName = 'index') =>
-  defineConfig({
+export const library = (moduleUrl, fileName = 'index') => {
+  const pkg = JSON.parse(
+    readFileSync(fileURLToPath(new URL('package.json', moduleUrl)))
+  );
+
+  return defineConfig({
     build: {
       outDir: 'lib',
       sourcemap: true,
@@ -13,8 +19,9 @@ export const library = (moduleUrl, fileName = 'index') =>
         formats: ['es'],
       },
       rollupOptions: {
-        external: [/^@ethereal-ui/],
+        external: Object.keys(pkg.dependencies ?? {}),
       },
     },
     plugins: [dts()],
   });
+};
