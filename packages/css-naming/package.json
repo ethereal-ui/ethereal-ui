@@ -23,9 +23,6 @@
     },
     "extends": "@ethereal-ui/eslint-config"
   },
-  "dependencies": {
-    "@ethereal-ui/util": "workspace:^0.0.0"
-  },
   "devDependencies": {
     "@ethereal-ui/eslint-config": "workspace:*",
     "@ethereal-ui/tsconfig": "workspace:*",
