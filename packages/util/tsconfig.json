@@ -1,6 +1,0 @@
-{
-  "extends": "@ethereal-ui/tsconfig/vite-library.json",
-  "include": ["src"],
-  "exclude": ["**/*.test.ts"],
-  "references": [{ "path": "./tsconfig.dev.json" }]
-}

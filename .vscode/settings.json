@@ -1,3 +1,13 @@
 {
-  "eslint.workingDirectories": [{ "mode": "auto" }]
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.js,${capture}.test.ts,${capture}.test.tsx,${capture}.test-d.ts",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts,${capture}.test.js",
+    "*.jsx": "${capture}.js",
+    "*.tsx": "${capture}.js,${capture}.test.tsx",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml"
+  }
 }

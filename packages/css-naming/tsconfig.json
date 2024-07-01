@@ -1,6 +1,26 @@
 {
-  "extends": "@ethereal-ui/tsconfig/vite-library.json",
-  "include": ["src"],
-  "exclude": ["**/*.test.ts"],
-  "references": [{ "path": "./tsconfig.dev.json" }]
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["es2022"],
+    "module": "es2022",
+    "skipLibCheck": true,
+
+    "moduleResolution": "bundler",
+    "allowJs": false,
+
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": ["src", "vite.config.ts", "**/*.test.ts"]
 }

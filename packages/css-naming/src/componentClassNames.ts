@@ -13,6 +13,17 @@ import { elementClassNamePropertyDescriptors } from './elementClassNamePropertyD
 
 export const defaultPrefix = 'eui' as const;
 
+/**
+ * Returns a tuple with objects that help format CSS class names and
+ * selectors according to a naming convention (for additional details,
+ * see the module README).
+ *
+ * @param name the component's name
+ * @param options optional
+ * @param options.prefix the class names prefix (`eui` by default)
+ * @param options.elements an array with the sub-elements names
+ * @param options.modifiers an object specifying the modifiers
+ */
 export const componentClassNames = <
   N extends string,
   E extends string,

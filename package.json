@@ -13,15 +13,16 @@
   },
   "prettier": {
     "arrowParens": "avoid",
+    "proseWrap": "always",
     "singleQuote": true,
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "prettier": "3.2.5",
-    "sort-package-json": "^2.10.0"
+    "@changesets/cli": "2.27.6",
+    "husky": "9.0.11",
+    "lint-staged": "15.2.7",
+    "prettier": "3.3.2",
+    "sort-package-json": "2.10.0"
   },
-  "packageManager": "pnpm@9.0.6"
+  "packageManager": "pnpm@9.4.0"
 }

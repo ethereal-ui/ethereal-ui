@@ -1,7 +1,0 @@
-{
-  "extends": "@ethereal-ui/tsconfig/vite-library.json",
-  "compilerOptions": {
-    "composite": true
-  },
-  "include": ["src", "vite.config.ts", "**/*.test.ts"]
-}
