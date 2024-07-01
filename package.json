@@ -2,7 +2,10 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "prepare": "husky"
+    "build": "pnpm -r build",
+    "prepare": "husky",
+    "release": "pnpm build && changeset publish",
+    "version-packages": "changeset version"
   },
   "lint-staged": {
     "package.json": "sort-package-json",
