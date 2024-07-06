@@ -1,6 +1,22 @@
 {
   "name": "@ethereal-ui/css-naming",
   "version": "1.0.0",
+  "description": "Functions that help create CSS class names and selectors following a naming convention",
+  "keywords": [
+    "css",
+    "util",
+    "classnames",
+    "utility",
+    "react"
+  ],
+  "homepage": "https://github.com/ethereal-ui/ethereal-ui#readme",
+  "bugs": {
+    "url": "https://github.com/ethereal-ui/ethereal-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethereal-ui/ethereal-ui.git"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {
