@@ -53,6 +53,8 @@ module.exports = {
         restrictedNamedExports: ['then'],
       },
     ],
+
+    'import/extensions': 0,
   },
   overrides: [
     {
