@@ -18,6 +18,7 @@
     "url": "git+https://github.com/ethereal-ui/ethereal-ui.git"
   },
   "license": "MIT",
+  "author": "Diego Fernandez",
   "type": "module",
   "exports": {
     ".": {
