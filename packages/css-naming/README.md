@@ -1,7 +1,7 @@
 # @ethereal-ui/css-naming
 
-This module provides functions that help create CSS class names and selectors
-following a naming convention.
+This module helps you create CSS class names and selectors following a naming
+convention.
 
 ## Installation
 
@@ -13,27 +13,24 @@ npm install @ethereal-ui/css-naming
 
 ## Motivation
 
-When you develop a web app, you have plenty of options for handling CSS class
-name modularization: CSS-in-JS, CSS Modules, Web Components' shadow DOM, and
-naming conventions.
+When building a web app, there are plenty of options for handling CSS class name
+modularization: CSS-in-JS, CSS Modules, Web Components' shadow DOM, and naming
+conventions.
 
 However, the requirements for an extensible design system are slightly
 different. We need to have namespace isolation while providing extensibility.
 There are a few options to accomplish this:
 
-- Some CSS-in-JS solutions allow using components as selectors. However, these
-  solutions are specific to a particular CSS-in-JS framework, forcing the design
-  system users to use the same framework.
-- CSS Custom Properties (aka CSS Variables) are standard and work with Web
-  Components or anything using CSS. However, the customization options are
-  limited to the defined variables.
-- A CSS naming convention is an old workaround, but 0its maintenance is painful.
+- Many CSS-in-JS solutions allow using components as selectors. But, they’re
+  framework specific, which means your design system users must use the same
+  CSS-in-JS library.
+- CSS Custom Properties (aka CSS Variables) work well with Web Components or
+  anything using CSS, but customization is limited to predefined variables.
+- CSS naming conventions are an old trick, but maintaining them is a pain.
 
-The goal of this library is to provide functions that ease the maintenance of a
-CSS naming convention by supporting TypeScript and providing helpers that are
-easy to use from React. The library doesn't depend on React, and you may use it
-with other frameworks, but it returns objects with the `className` field to make
-it easy to include in React's JSX.
+This library aims to simplify the maintenance of a CSS naming convention by
+supporting TypeScript and providing easy-to-use helpers for React. It’s not
+dependent on React, so you can use it with other frameworks too.
 
 ## Naming Convention
 
