@@ -13,8 +13,8 @@ export const createPreviewPage = (
       render(
         document.getElementById('root'),
         modules,
-        params.get('path'),
-        params.get('view')
+        params.get('path') ?? undefined,
+        params.get('view') ?? undefined
       );
     </script>
     <div id="root"></div>
