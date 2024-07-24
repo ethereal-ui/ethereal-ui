@@ -1,14 +1,25 @@
 # @ethereal-ui/css-naming
 
-This module helps you create CSS class names and selectors following a naming
-convention.
+Create CSS class names and selectors following a naming convention.
 
 ## Installation
 
-To install the package, use the following command:
+Using npm:
 
 ```sh
 npm install @ethereal-ui/css-naming
+```
+
+yarn:
+
+```sh
+yarn add @ethereal-ui/css-naming
+```
+
+or pnpm:
+
+```sh
+pnpm add @ethereal-ui/css-naming
 ```
 
 ## Motivation
@@ -21,16 +32,17 @@ However, the requirements for an extensible design system are slightly
 different. We need to have namespace isolation while providing extensibility.
 There are a few options to accomplish this:
 
-- Many CSS-in-JS solutions allow using components as selectors. But, they’re
-  framework specific, which means your design system users must use the same
-  CSS-in-JS library.
 - CSS Custom Properties (aka CSS Variables) work well with Web Components or
   anything using CSS, but customization is limited to predefined variables.
+
+- Many CSS-in-JS solutions allow using components as selectors, but they’re
+  framework-specific, which means your design system users must use the same
+  CSS-in-JS library.
+
 - CSS naming conventions are an old trick, but maintaining them is a pain.
 
 This library aims to simplify the maintenance of a CSS naming convention by
-supporting TypeScript and providing easy-to-use helpers for React. It’s not
-dependent on React, so you can use it with other frameworks too.
+supporting TypeScript and providing helpers that work seamlessly with React.
 
 ## Naming Convention
 
@@ -42,11 +54,11 @@ root class and uses camel-case: `prefix-ComponentName-element.`
 There is only one level of sub-elements. If you need more nesting levels,
 consider creating another component.
 
-The root class may have **modifiers**, which are other classes that indicate a
-style variant or component state. Modifiers are prefixed camel-case names always
-used with the root class: `prefix-ComponentName prefix-modifier`. Sub-elements
-don't have modifiers because modifiers apply to the whole component, and it's
-easy to control the sub-element style with them:
+The root class may have **modifiers**: classes that indicate a style variant or
+component state. Modifiers are prefixed camel-case names always used with the
+root class: `prefix-ComponentName prefix-modifier`. Sub-elements don't have
+modifiers because modifiers apply to the whole component, and it's easy to
+control the sub-element style with them, for example:
 
 ```css
 .prefix-ComponentName.prefix-modifier .prefix-ComponentName-element {

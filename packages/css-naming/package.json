@@ -1,7 +1,7 @@
 {
   "name": "@ethereal-ui/css-naming",
   "version": "1.0.0",
-  "description": "Functions that help create CSS class names and selectors following a naming convention",
+  "description": "Create CSS class names and selectors following a naming convention",
   "keywords": [
     "css",
     "util",
