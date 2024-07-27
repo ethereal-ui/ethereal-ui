@@ -1,6 +1,11 @@
 /** @type import('eslint').Linter.Config */
 module.exports = {
-  extends: ['airbnb-base', 'airbnb-typescript/base', 'prettier'],
+  extends: [
+    'airbnb-base',
+    'airbnb-typescript/base',
+    'prettier',
+    'plugin:testing-library/react',
+  ],
   parser: '@typescript-eslint/parser',
 
   ignorePatterns: ['lib'],
@@ -53,6 +58,28 @@ module.exports = {
         restrictedNamedExports: ['then'],
       },
     ],
+
+    // This one is hard to pick. Projects intended for Node ESM should
+    // always use extensions like "js" or "mjs". Projects supporting
+    // Deno could use ".ts", which will not work with Node and require a
+    // TS configuration option. Web projects using bundlers like Rollup,
+    // Vite, or WebPack support both. At the moment, I choose not to put
+    // any extension as it has a better DX, and I'm using a bundler
+    // anyway.
+    'import/extensions': 0,
+
+    // Disallow introducing side-effects by mistake when importing types
+    '@typescript-eslint/no-import-type-side-effects': 'error',
+
+    // I like the interface syntax more, and the older TS versions have
+    // better DX and error reporting with interfaces. However, interface
+    // support for declaration merging is the culprit of this annoying
+    // issue: https://github.com/microsoft/TypeScript/issues/15300
+    // My conclusion was to use type for most things and interface for
+    // things that may benefit from declaration merging. As the latter is
+    // impossible to detect in ESLint, I prefer to put the rule and
+    // override it for particular situations.
+    '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
   },
   overrides: [
     {

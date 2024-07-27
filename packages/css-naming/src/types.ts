@@ -8,18 +8,18 @@ export type MapModifiersSpec<M extends ModifiersSpec> = {
 
 export type Modifiers = Partial<Record<string, string | boolean>>;
 
-export interface ClassNameProp {
+export type ClassNameProp = {
   className?: string;
-}
+};
 
-export interface ClassNameFunctionWithModifiers<M extends Modifiers>
-  extends Required<ClassNameProp> {
-  (className?: string, modifiers?: M): ClassNameProp;
-}
+export type ClassNameFunctionWithModifiers<M extends Modifiers> =
+  Required<ClassNameProp> & {
+    (className?: string, modifiers?: M): ClassNameProp;
+  };
 
-export interface ClassNameFunction extends Required<ClassNameProp> {
+export type ClassNameFunction = Required<ClassNameProp> & {
   (className?: string): ClassNameProp;
-}
+};
 
 export type ComponentClassNames<
   E extends string,
@@ -59,12 +59,12 @@ export type ComponentSelectors<
   modifiers: ModifierSelectors<P, N, M>;
 } & ElementSelectors<P, N, E>;
 
-export interface ComponentClassNameOptions<
+export type ComponentClassNameOptions<
   P extends string,
   E extends string,
   M extends ModifiersSpec,
-> {
+> = {
   prefix?: P;
   elements?: readonly E[];
   modifiers?: M;
-}
+};

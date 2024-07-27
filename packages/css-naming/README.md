@@ -1,67 +1,19 @@
 # @ethereal-ui/css-naming
 
-This module provides functions that help create CSS class names and selectors
-following a naming convention.
+Create CSS class names and selectors following a naming convention.
 
 ## Installation
 
-To install the package, use the following command:
-
 ```sh
+# npm
 npm install @ethereal-ui/css-naming
+
+# yarn
+yarn add @ethereal-ui/css-naming
+
+# pnpm
+pnpm add @ethereal-ui/css-naming
 ```
-
-## Motivation
-
-When you develop a web app, you have plenty of options for handling CSS class
-name modularization: CSS-in-JS, CSS Modules, Web Components' shadow DOM, and
-naming conventions.
-
-However, the requirements for an extensible design system are slightly
-different. We need to have namespace isolation while providing extensibility.
-There are a few options to accomplish this:
-
-- Some CSS-in-JS solutions allow using components as selectors. However, these
-  solutions are specific to a particular CSS-in-JS framework, forcing the design
-  system users to use the same framework.
-- CSS Custom Properties (aka CSS Variables) are standard and work with Web
-  Components or anything using CSS. However, the customization options are
-  limited to the defined variables.
-- A CSS naming convention is an old workaround, but 0its maintenance is painful.
-
-The goal of this library is to provide functions that ease the maintenance of a
-CSS naming convention by supporting TypeScript and providing helpers that are
-easy to use from React. The library doesn't depend on React, and you may use it
-with other frameworks, but it returns objects with the `className` field to make
-it easy to include in React's JSX.
-
-## Naming Convention
-
-Every component has a **root class** with the format: `prefix-ComponentName`.
-
-A component may have sub-elements. The **sub-element class** starts with the
-root class and uses camel-case: `prefix-ComponentName-element.`
-
-There is only one level of sub-elements. If you need more nesting levels,
-consider creating another component.
-
-The root class may have **modifiers**, which are other classes that indicate a
-style variant or component state. Modifiers are prefixed camel-case names always
-used with the root class: `prefix-ComponentName prefix-modifier`. Sub-elements
-don't have modifiers because modifiers apply to the whole component, and it's
-easy to control the sub-element style with them:
-
-```css
-.prefix-ComponentName.prefix-modifier .prefix-ComponentName-element {
-  /* styles of the element when the modifier is active */
-}
-```
-
-> **In a Nutshell:**
->
-> - Component class: `prefix-ComponentName`
-> - Sub-element class: `prefix-ComponentName-subElementName`
-> - Modifiers: `prefix-ComponentName prefix-modifierName`
 
 ## Usage
 
@@ -118,7 +70,7 @@ const Example = ({ danger, variant }) => (
   </div>
 );
 
-// it supports an additional className prop
+// example with an additional className prop
 const AlternativeExample = ({ className, danger, variant }) => (
   <div {...cn(className, { danger, variant })}>
     <div {...cn.child} />
@@ -182,6 +134,56 @@ const css = `
   ${selectors.modifiers.variant.medium} {font-size: 2rem;}
 `;
 ```
+
+## Motivation
+
+When building a web app, there are plenty of options for handling CSS class name
+modularization: CSS-in-JS, CSS Modules, Web Components' shadow DOM, and naming
+conventions.
+
+However, the requirements for an extensible design system are slightly
+different. We need to have namespace isolation while providing extensibility.
+There are a few options to accomplish this:
+
+- CSS Custom Properties (aka CSS Variables) work well with Web Components or
+  anything using CSS, but customization is limited to predefined variables.
+
+- Many CSS-in-JS solutions allow using components as selectors, but they’re
+  framework-specific, which means your design system users must use the same
+  CSS-in-JS library.
+
+- CSS naming conventions are an old trick, but maintaining them is a pain.
+
+This library aims to simplify the maintenance of a CSS naming convention by
+supporting TypeScript and providing helpers that work seamlessly with React.
+
+## Naming Convention
+
+Every component has a **root class** with the format: `prefix-ComponentName`.
+
+A component may have sub-elements. The **sub-element class** starts with the
+root class and uses camel-case: `prefix-ComponentName-element.`
+
+There is only one level of sub-elements. If you need more nesting levels,
+consider creating another component.
+
+The root class may have **modifiers**: classes that indicate a style variant or
+component state. Modifiers are prefixed camel-case names always used with the
+root class: `prefix-ComponentName prefix-modifier`. Sub-elements don't have
+modifiers because modifiers apply to the whole component, and it's easy to
+control the sub-element style with them, for example:
+
+```css
+.prefix-ComponentName.prefix-modifier .prefix-ComponentName-element {
+  /* styles of the element when the modifier is active */
+}
+```
+
+> **In a Nutshell:**
+>
+> - Component class: `prefix-ComponentName`
+> - Sub-element class: `prefix-ComponentName-subElementName`
+> - Modifiers: `prefix-ComponentName prefix-modifierName`
 
 ## API
 
