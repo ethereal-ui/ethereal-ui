@@ -1,10 +1,16 @@
 // @vitest-environment happy-dom
 import '@testing-library/jest-dom/vitest';
-import { beforeEach, expect, test } from 'vitest';
-import { act, screen } from '@testing-library/react';
+import { afterEach, beforeEach, expect, test } from 'vitest';
+import { act, cleanup, screen } from '@testing-library/react';
 
 import { render } from './render';
-import type { Modules } from './types';
+import type { Modules } from './Modules';
+
+// We are testing a render function that is not the render from
+// testing-library, so we need to wrap it with act to make
+// state changes work.
+
+/* eslint-disable testing-library/no-unnecessary-act */
 
 const modules: Modules = {
   test: async () => ({
@@ -13,12 +19,18 @@ const modules: Modules = {
 };
 
 beforeEach(() => {
-  document.body.innerHTML = '<div id="root"></div>';
+  document.body.innerHTML = '<div id="root" data-testid="root"></div>';
+});
+
+afterEach(() => {
+  cleanup();
 });
 
 test('Render existent module', async () => {
-  const root = document.getElementById('root')!;
-  const unmount = await act(async () => render(root, modules, 'test'));
+  const root = screen.getByTestId('root');
+  const unmount = await act(async () =>
+    render(root, modules, { path: 'test' })
+  );
 
   try {
     expect(await screen.findByTestId('test')).toHaveTextContent('Test Module');
@@ -27,9 +39,11 @@ test('Render existent module', async () => {
   }
 });
 
-test('Not found message', async () => {
-  const root = document.getElementById('root')!;
-  const unmount = await act(async () => render(root, modules, 'other'));
+test('Preview not found message', async () => {
+  const root = screen.getByTestId('root');
+  const unmount = await act(async () =>
+    render(root, modules, { path: 'other' })
+  );
 
   try {
     expect(root).toHaveTextContent('Not Found');
@@ -38,12 +52,36 @@ test('Not found message', async () => {
   }
 });
 
-test('No modules message', async () => {
-  const root = document.getElementById('root')!;
-  const unmount = await act(async () => render(root, {}));
+test('View not found message', async () => {
+  const root = screen.getByTestId('root');
+  const unmount = await act(async () =>
+    render(root, modules, { path: 'test', view: 'notFound' })
+  );
 
   try {
-    expect(root).toHaveTextContent('No Modules');
+    expect(root).toHaveTextContent('Not Found');
+  } finally {
+    unmount();
+  }
+});
+
+test('No previews message', async () => {
+  const root = screen.getByTestId('root');
+  const unmount = await act(async () => render(root, {}, { path: '' }));
+
+  try {
+    expect(root).toHaveTextContent('No Previews');
+  } finally {
+    unmount();
+  }
+});
+
+test('Show the index when no path is specified', async () => {
+  const root = screen.getByTestId('root');
+  const unmount = await act(async () => render(root, modules));
+
+  try {
+    expect(screen.getByRole('link')).toHaveTextContent('test');
   } finally {
     unmount();
   }

@@ -15,7 +15,10 @@ export const getComponent = (
   const component =
     view === undefined
       ? (loadedModule['default'] ?? loadedModule[entries[0]![0]!])
-      : loadedModule[view];
+      : (loadedModule[view] ??
+        entries.find(
+          ([name]) => name.toLowerCase() === view.toLowerCase()
+        )?.[1]);
 
   // An ElementType is a ComponentType + IntrinsicElements (div, etc).
   // Other React APIs like React.lazy only accept ComponentType, which

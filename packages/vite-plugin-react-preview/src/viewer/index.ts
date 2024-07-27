@@ -1,2 +1,5 @@
 export * from './render';
-export * from './ViewerContext';
+export * from './DefaultComponentWrapper';
+
+export type * from './Modules';
+export type * from './ComponentWrapperProps';

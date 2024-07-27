@@ -50,3 +50,21 @@ test('Component is not a valid element', () => {
 
   expect(getComponent(loadedModule)).toBeUndefined();
 });
+
+test('Prioritize case sensitivity', () => {
+  const loadedModule = {
+    other: () => 'Test',
+    Other: () => 'Other',
+  };
+
+  expect(getComponent(loadedModule, 'Other')).toBe(loadedModule.Other);
+});
+
+test('Fallback to case insensitive when not found', () => {
+  const loadedModule = {
+    Test: () => 'Test',
+    Other: () => 'Other',
+  };
+
+  expect(getComponent(loadedModule, 'test')).toBe(loadedModule.Test);
+});

@@ -1,4 +1,4 @@
-import type { ModuleLoader, Modules } from '../types';
+import type { ModuleLoader, Modules } from '../Modules';
 import { matchesComponentPath } from './matchesComponentPath';
 
 export const findModule = (

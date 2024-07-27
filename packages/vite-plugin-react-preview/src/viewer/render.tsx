@@ -1,57 +1,88 @@
 import { createRoot } from 'react-dom/client';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, type ComponentType, type ReactNode } from 'react';
 
-import type { Modules } from './types';
-import { findModule, getComponent } from './util';
-import { NoModulesMessage, NotFoundMessage } from './components';
-import type { ViewerContextValue } from './ViewerContextValue';
-import { ViewerContext } from './ViewerContext';
+import { defaultOptions } from '../plugin/defaultOptions';
+
+import { NoPreviewsMessage } from './components/NoPreviewsMessage';
+import { NotFoundMessage } from './components/NotFoundMessage';
+
+import { findModule } from './util/findModule';
+import { getComponent } from './util/getComponent';
+
+import { LoadingIndicator } from './components/LoadingIndicator';
+import { ViewNotFoundMessage } from './components/ViewNotFoundMessage';
+import { PreviewIndex } from './components/PreviewIndex';
+
+import type { Modules } from './Modules';
+import type { ComponentWrapperProps } from './ComponentWrapperProps';
+import { DefaultComponentWrapper } from './DefaultComponentWrapper';
+
+type RenderParams = {
+  include?: string;
+  route?: string;
+  path?: string;
+  view?: string;
+  componentWrapper?: ComponentType<ComponentWrapperProps>;
+};
+
+const renderNode = (container: Element, node: ReactNode): (() => void) => {
+  const root = createRoot(container);
+  root.render(node);
+  return () => root.unmount();
+};
 
 export const render = (
   container: Element,
   modules: Modules,
-  path?: string,
-  view?: string
+  {
+    path,
+    view,
+    include = defaultOptions.include,
+    route = defaultOptions.route,
+    componentWrapper: ComponentWrapper = DefaultComponentWrapper,
+  }: RenderParams = {}
 ): (() => void) => {
-  const root = createRoot(container);
+  const moduleNames = Object.keys(modules);
 
-  if (Object.keys(modules).length === 0) {
-    root.render(<NoModulesMessage />);
-    return () => root.unmount();
+  if (moduleNames.length === 0) {
+    return renderNode(container, <NoPreviewsMessage include={include} />);
+  }
+
+  if (!path) {
+    return renderNode(
+      container,
+      <PreviewIndex moduleNames={moduleNames} route={route} />
+    );
   }
 
   const found = findModule(modules, path);
 
   if (!found) {
-    root.render(
-      <NotFoundMessage
-        moduleNames={Object.keys(modules)}
-        path={path}
-        view={view}
-      />
-    );
-  } else {
-    const [moduleName, loader] = found;
-
-    const context: ViewerContextValue = {
-      modules,
-      moduleName,
-      view,
-    };
-
-    const Component = lazy(async () => ({
-      default:
-        getComponent(await loader(), view) ?? (() => <div>View not found</div>),
-    }));
-
-    root.render(
-      <ViewerContext.Provider value={context}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Component />
-        </Suspense>
-      </ViewerContext.Provider>
+    return renderNode(
+      container,
+      <NotFoundMessage path={path} view={view} moduleNames={moduleNames} />
     );
   }
+  const [moduleName, loader] = found;
 
-  return () => root.unmount();
+  const Component = lazy(async () => ({
+    default:
+      getComponent(await loader(), view) ??
+      (() => <ViewNotFoundMessage moduleName={moduleName} view={view} />),
+  }));
+
+  const contextValue: Omit<ComponentWrapperProps, 'children'> = {
+    modules,
+    moduleName,
+    view,
+  };
+
+  return renderNode(
+    container,
+    <Suspense fallback={<LoadingIndicator />}>
+      <ComponentWrapper {...contextValue}>
+        <Component />
+      </ComponentWrapper>
+    </Suspense>
+  );
 };

@@ -3,17 +3,22 @@ import type { PluginOption } from 'vite';
 import type { Options } from './Options';
 import { createPreviewPage } from './createPreviewPage';
 import { normalizeGlob } from './normalizeGlob';
+import { defaultOptions } from './defaultOptions';
+import { normalizeComponentWrapperOption } from './normalizeComponentWrapperOption';
 
-const defaultOptions: Options = {
-  include: '/**/*.preview.tsx',
-  route: '/_preview',
-};
-
+/**
+ * Loads a dev server endpoint to show a React component preview.
+ */
 export const reactPreview = ({
   include = defaultOptions.include,
   route = defaultOptions.route,
+  componentWrapper = defaultOptions.componentWrapper,
 }: Partial<Options> = defaultOptions): PluginOption => {
-  const previewPage = createPreviewPage(normalizeGlob(include));
+  const previewPage = createPreviewPage({
+    include: normalizeGlob(include),
+    route,
+    componentWrapper: normalizeComponentWrapperOption(componentWrapper),
+  });
 
   return {
     name: 'reactPreview',

@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest';
 
 import { findModule } from './findModule';
-import type { Modules } from '../types';
+import type { Modules } from '../Modules';
 
 const modules: Modules = {
   '/src/components/Button.preview.tsx': async () => {},
