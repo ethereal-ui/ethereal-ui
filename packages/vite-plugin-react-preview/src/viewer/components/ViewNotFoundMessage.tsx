@@ -2,7 +2,7 @@ import { ErrorMessage } from './ErrorMessage';
 
 type ViewNotFoundMessageProps = {
   moduleName: string;
-  view?: string;
+  viewName?: string;
 };
 
 export const ViewNotFoundMessage = (props: ViewNotFoundMessageProps) => (

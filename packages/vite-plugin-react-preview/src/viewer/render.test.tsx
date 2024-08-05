@@ -55,7 +55,7 @@ test('Preview not found message', async () => {
 test('View not found message', async () => {
   const root = screen.getByTestId('root');
   const unmount = await act(async () =>
-    render(root, modules, { path: 'test', view: 'notFound' })
+    render(root, modules, { path: 'test', viewName: 'notFound' })
   );
 
   try {

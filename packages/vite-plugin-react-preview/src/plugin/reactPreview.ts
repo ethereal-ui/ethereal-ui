@@ -4,7 +4,7 @@ import type { Options } from './Options';
 import { createPreviewPage } from './createPreviewPage';
 import { normalizeGlob } from './normalizeGlob';
 import { defaultOptions } from './defaultOptions';
-import { normalizeComponentWrapperOption } from './normalizeComponentWrapperOption';
+import { normalizeViewResolverFactoryOption } from './normalizeViewResolverFactoryOption';
 
 /**
  * Loads a dev server endpoint to show a React component preview.
@@ -12,12 +12,13 @@ import { normalizeComponentWrapperOption } from './normalizeComponentWrapperOpti
 export const reactPreview = ({
   include = defaultOptions.include,
   route = defaultOptions.route,
-  componentWrapper = defaultOptions.componentWrapper,
+  viewResolverFactory = defaultOptions.viewResolverFactory,
 }: Partial<Options> = defaultOptions): PluginOption => {
   const previewPage = createPreviewPage({
     include: normalizeGlob(include),
     route,
-    componentWrapper: normalizeComponentWrapperOption(componentWrapper),
+    viewResolverFactory:
+      normalizeViewResolverFactoryOption(viewResolverFactory),
   });
 
   return {
