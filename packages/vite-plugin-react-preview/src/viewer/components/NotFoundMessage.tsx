@@ -3,7 +3,7 @@ import { ErrorMessage } from './ErrorMessage';
 type NotFoundMessageProps = {
   moduleNames: readonly string[];
   path?: string;
-  view?: string;
+  viewName?: string;
 };
 
 export const NotFoundMessage = (props: NotFoundMessageProps) => (

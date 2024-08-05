@@ -4,7 +4,7 @@ export type Options = {
    * syntax accepted by
    * [Vite's Glob Import](https://vitejs.dev/guide/features#glob-import).
    */
-  include: string;
+  include: string | readonly string[];
 
   /**
    * HTTP route for the preview endpoint. (default: `/_preview`)
@@ -12,18 +12,18 @@ export type Options = {
   route: string;
 
   /**
-   * Configuration to import a wrapper component for preview contents.
+   * Configuration to import a view resolver factory.
    *
    * Example:
    *
    * ```ts
    * {
-   *   import: 'Wrapper',
-   *   from: './src/Wrapper',
+   *   import: 'myViewResolverFactory',
+   *   from: './src/myViewResolverFactory',
    * }
    * ```
    */
-  componentWrapper: {
+  viewResolverFactory: {
     import: string;
     from: string;
   };

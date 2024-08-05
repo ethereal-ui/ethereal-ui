@@ -12,3 +12,10 @@ test('Convert relative path to absolute', () => {
 test('Leave absolute paths untouched', () => {
   expect(normalizeGlob('/**/*.ts')).toBe('/**/*.ts');
 });
+
+test('Normalize string array', () => {
+  expect(normalizeGlob(['**/*.ts', 'other.js'])).toEqual([
+    '/**/*.ts',
+    '/other.js',
+  ]);
+});

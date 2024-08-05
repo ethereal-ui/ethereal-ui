@@ -7,7 +7,7 @@ test('Only export the expected externals', () => {
   // Update the snapshot accordingly.
   expect(Object.keys(libExports).sort()).toMatchInlineSnapshot(`
     [
-      "DefaultComponentWrapper",
+      "defaultViewResolverFactory",
       "render",
     ]
   `);
