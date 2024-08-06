@@ -1,6 +1,16 @@
 # @ethereal-ui/vite-plugin-react-preview
+![NPM Version](https://img.shields.io/npm/v/%40ethereal-ui%2Fvite-plugin-react-preview?label=%20)
+
 
 Quickly preview React components with Vite.
+
+- 🍃 **Lightweight:** Thin layer on top of Vite functionality.
+- 🛠️ **Minimal configuration:** Add one plugin, and you’re ready.
+- ⚡️ **Hot-reload:** Instant preview updates.
+- 🚀 **Non-intrusive:** Doesn’t interfere with your production bundle.
+- 🔌 **Extensible:** Wrap previews with your React components for theming or visual helpers.
+- 🤝 **Compatible with StoryBook**
+- ✅ **No Telemetry**
 
 ## Installation
 
@@ -34,11 +44,15 @@ source directory. The plugin will treat each export containing a valid React
 component type as a view to visualize.
 
 Run Vite and open a browser using the route `/_preview`. Your preview file will
-be listed there; click it to view it. The preview uses Vite’s hot-reload,
+be listed there; click it to view it. The preview uses Vite’s hot reload,
 keeping it up-to-date as you change the code.
 
-> **Tip:** Combine this plugin with VSCode’s Simple Browser to get a
-> side-by-side instant preview of your React component.
+<!-- prettier-ignore-start -->
+> [!TIP]
+> Combine this plugin with **VSCode built-in Simple Browser**
+> -or a [similar extension](https://marketplace.visualstudio.com/items?itemName=antfu.browse-lite)-
+> to get a side-by-side instant preview of your React component.
+<!-- prettier-ignore-end -->
 
 ### Usage with Storybook
 
@@ -66,12 +80,15 @@ export default defineConfig({
 });
 ```
 
-> **Note:** While it’s possible to include any file exporting a valid React
-> component, using `**/*.tsx` for the include option is not recommended. A
-> project may contain many React components; not all will render correctly
+<!-- prettier-ignore-start -->
+> [!NOTE]
+> While it’s possible to include any file exporting a valid React
+> component, using `**/*.tsx` is not recommended. A project may
+> contain many React components; not all will render correctly
 > without the proper setup.
+<!-- prettier-ignore-end -->
 
-The `include` option supports string arrays and exclude patterns (the plugin
+The `include` option supports string arrays and excludes patterns (the plugin
 uses [Vite glob imports](https://vitejs.dev/guide/features.html#glob-import)):
 
 ```js
@@ -183,7 +200,7 @@ export const myViewResolverFactory: ViewResolverFactory = loadedModule =>
   defaultViewResolverFactory(loadedModule, { viewWrapper: MyViewWrapper });
 ```
 
-Then setup that `ViewResolverFactory` in the plugin options:
+Then, set up that `ViewResolverFactory` in the plugin options:
 
 ```js
 export default defineConfig({
@@ -206,7 +223,7 @@ does):
 import type { ViewResolverFactory } from '@ethereal-ui/vite-plugin-react-preview/viewer';
 
 export const myViewResolverFactory: ViewResolverFactory = loadedModule => {
-  // This is an example, these functions doesn't exists in the plugin
+  // This is an example; these functions don't exist in the plugin
   const views = transformCSFObjectsIntoViews(loadedModule);
   const findView = createFindViewImpl(views);
 
