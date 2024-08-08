@@ -128,3 +128,18 @@ test('Apply viewWrapper', () => {
     </Wrapper>
   );
 });
+
+test('Custom view filter', () => {
+  const loadedModule = {
+    Other: () => 'Other',
+    preview: () => 'Preview',
+  };
+
+  const resolver = viewResolverFactory(loadedModule, {
+    viewFilter: name => name.startsWith('preview'),
+  });
+
+  expect(resolver.views.length).toBe(1);
+  expect(resolver.views[0]?.name).toBe('preview');
+  expect(resolver.views[0]?.component).toBe(loadedModule.preview);
+});
