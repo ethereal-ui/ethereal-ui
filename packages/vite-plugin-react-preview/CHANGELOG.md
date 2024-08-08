@@ -1,5 +1,11 @@
 # @ethereal-ui/vite-plugin-react-preview
 
+## 3.1.0
+
+### Minor Changes
+
+- 7b4c001: New viewFilter option in defaultViewResolverFactory
+
 ## 3.0.0
 
 ### Major Changes
