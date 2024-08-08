@@ -1,6 +1,6 @@
 # @ethereal-ui/vite-plugin-react-preview
-![NPM Version](https://img.shields.io/npm/v/%40ethereal-ui%2Fvite-plugin-react-preview?label=%20)
 
+![NPM Version](https://img.shields.io/npm/v/%40ethereal-ui%2Fvite-plugin-react-preview?label=%20)
 
 Quickly preview React components with Vite.
 
@@ -8,7 +8,8 @@ Quickly preview React components with Vite.
 - 🛠️ **Minimal configuration:** Add one plugin, and you’re ready.
 - ⚡️ **Hot-reload:** Instant preview updates.
 - 🚀 **Non-intrusive:** Doesn’t interfere with your production bundle.
-- 🔌 **Extensible:** Wrap previews with your React components for theming or visual helpers.
+- 🔌 **Extensible:** Wrap previews with your React components for theming or
+  visual helpers.
 - 🤝 **Compatible with StoryBook**
 - ✅ **No Telemetry**
 
@@ -86,6 +87,9 @@ export default defineConfig({
 > component, using `**/*.tsx` is not recommended. A project may
 > contain many React components; not all will render correctly
 > without the proper setup.
+>
+> If you like to embed the preview alongside your component code, see
+> the [Previews in the same component file](#previews-in-the-same-component-file) section.
 <!-- prettier-ignore-end -->
 
 The `include` option supports string arrays and excludes patterns (the plugin
@@ -232,4 +236,66 @@ export const myViewResolverFactory: ViewResolverFactory = loadedModule => {
     findView,
   };
 };
+```
+
+### Previews in the same component file
+
+Writing the preview alongside your component code might be handy during
+development:
+
+```tsx
+export const MyComponent = props => <MyComponentContents />;
+
+export const preview = () => {
+  const props = setUpMyComponentPreview();
+  return <MyComponent {...props} />;
+};
+```
+
+<!-- prettier-ignore-start -->
+> [!NOTE]
+> The main reason why this is not the plugin default is that while
+> tree-shaking can ignore unused exports, the setup code may refer to
+> problematic dependencies that break your modularization layers or
+> cause cycles.
+>
+> However, this may be useful for a quick-and-dirty component
+> playground.
+<!-- prettier-ignore-end -->
+
+To have previews alongside your component code, change the default `include`
+plugin option to include every React component. Also, add a custom view resolver
+factory that only includes the `preview` export.
+
+Plugin Configuration (`vite.config.ts`)
+
+```ts
+import { defineConfig } from 'vitest/config';
+import reactPreview from '@ethereal-ui/vite-plugin-react-preview';
+
+export default defineConfig({
+  plugins: [
+    reactPreview({
+      include: '**/*.tsx',
+      viewResolverFactory: {
+        import: 'viewResolverFactory',
+        from: './src/viewResolverFactory',
+      },
+    }),
+  ],
+});
+```
+
+Custom view resolver factory (`./src/viewResolverFactory.ts`):
+
+```ts
+import {
+  defaultViewResolverFactory,
+  type ViewResolverFactory,
+} from '@ethereal-ui/vite-plugin-react-preview/viewer';
+
+export const viewResolverFactory: ViewResolverFactory = loadedModule =>
+  defaultViewResolverFactory(loadedModule, {
+    viewFilter: name => name === 'preview',
+  });
 ```
